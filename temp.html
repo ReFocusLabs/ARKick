@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script src="http://code.jquery.com/jquery-latest.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+</head>
+<body>
+<script>
+var temp, cond, code=0, maxplaces= 20, fblikes;
+var d = new Date(month, day, hours, minutes, seconds, milliseconds);
+uri="http://api.openweathermap.org/data/2.5/weather?lat=18.53&lon=73.85&cnt=1&APPID=2385a4ba2769df3c1750f3123dfd1105&units=metric"; 
+jQuery.get(uri,function(r){
+  alert (temp = r.main.temp);
+  cond = r.weather[0].id;
+  calculate();
+},"jsonp");
+</script>
+</body>
+</html>
