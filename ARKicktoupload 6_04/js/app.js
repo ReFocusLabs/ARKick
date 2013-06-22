@@ -139,23 +139,20 @@ $("#catlist li").click(function(e){
     var index = $("#subsubcatscreen li").index(this);
     selsubsubcat = index;
         makevisible(5);
-        getplaces();
+        createPOI();
     });
     
 });
 });
-makevisible(6);
 
-function getplaces(){
-    //alert(selcat);
-    //alert(selsubcat);
-    //alert(selsubsubcat);
-}
-
-function displayinfo(){
-    url="https://api.foursquare.com/v2/venues/40a55d80f964a52020f31ee3?oauth_token=3YBXKUONRVCIDSGBFTHRTIJ2ECRPQUKED5LDKXTSWPDMNQTS&v=20130622";
+function displayinfo(id){
+    var id='40a55d80f964a52020f31ee3';
+    var clientId = '3JLCFT4CFRGATLFWPOTOCKA41HPLBZWCNBZF21MP5Q4E3AY2';
+    var clientSec = 'HT50OBCWT5D2HURLEFR0EROAX0DCCICFPJ0FVB4H0I5RPXHT';
+    url='https://api.foursquare.com/v2/venues/'+id+'?client_id='+clientId+'&client_secret='+clientSec+'&v=21030621';
+    console.log(url);
     jQuery.get(url,function(r){
-        var data = new Object();
+        
         var phone = r.response.venue.contact.formattedPhone;
         var name = r.response.venue.name;
         var address = r.response.venue.location.address;
@@ -165,6 +162,8 @@ function displayinfo(){
         var rating = r.response.venue.rating;
         var menu = r.response.venue.menu.mobileUrl;
         var photos = r.response.venue.photos.groups[0].items;
+        var lat = r.response.venue.location.lat;
+        var lon = r.response.venue.location.lng;
 
         if(photos.length == 0){
 
@@ -189,7 +188,36 @@ function displayinfo(){
            imgurl = photos[i].prefix+'width'+photos[i].width+photos[i].suffix;
            console.log(imgurl);
            
-        }         
+        }  
+        if(name.length > 25){
+            var cropname = name.substring(0, 25) + "..";
+        }
+        else{
+            var cropname = name;
+        }
+        document.getElementById("name").innerHTML=cropname;
+        document.getElementById("address").innerHTML=address;
+        document.getElementById("citystate").innerHTML=city+', '+state;
+        document.getElementById("country").innerHTML=country;
+        document.getElementById("phonenum").innerHTML=phone;
+        rating = Math.round(rating*10)/10;
+        document.getElementById("ratingvalue").innerHTML=rating;
+
+        ///showing map
+        var latlng = new google.maps.LatLng(lat,lon);
+
+        var options = {  
+            zoom: 16,  
+            center: latlng,  
+            mapTypeId: google.maps.MapTypeId.ROADMAP,
+        };
+        var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+
+        marker1 = new google.maps.Marker({  
+        position: new google.maps.LatLng(lat,lon),
+        map: map
+}); 
+        ////       
         
     });
 
