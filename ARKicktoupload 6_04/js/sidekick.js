@@ -1,24 +1,25 @@
         
             
                 //user current locations
+               
                 var radius = 2000;
                 var timereq = 0;
                 // Create new images, which will be loaded right away
-                var markerimg = new AR.ImageResource("img/marker.png", {onError: errorLoadingImage});
-                radarImage = new AR.ImageResource("img/radar.png", {onError: errorLoadingImage});
+                /*var markerimg = new AR.ImageResource("img/marker.png", {onError: SKerrorLoadingImage});
+                radarImage = new AR.ImageResource("img/radar.png", {onError: SKerrorLoadingImage});
                 northIndicator = new AR.ImageResource("img/north.png", {onError: errorLoadingImage});
-            
+                */
                 var clientId = '3JLCFT4CFRGATLFWPOTOCKA41HPLBZWCNBZF21MP5Q4E3AY2';
                 var clientSec = 'HT50OBCWT5D2HURLEFR0EROAX0DCCICFPJ0FVB4H0I5RPXHT';
 
               
-                var selectedObject = null;
-                var jsonObject = new Array();
+                var SKselectedObject = null;
+                var SKjsonObject = new Array();
            
 
                  //function that gets called when the displayed poi bubble is clicked
                 //sends the id of the selected poi to the native app
-                function generateOnPoiBubbleClickFunc(id)
+                function SKgenerateOnPoiBubbleClickFunc(id)
                 {
                     return function()
                     {
@@ -28,7 +29,7 @@
                 
                 
                 // creates a property animation
-                function createOnClickAnimation(imageDrawable)
+                function SKcreateOnClickAnimation(imageDrawable)
                 {
                     var anim = new AR.PropertyAnimation( imageDrawable, 'scaling', 1.0, 1.1, 750, new AR.EasingCurve(AR.CONST.EASING_CURVE_TYPE.EASE_OUT_ELASTIC, {amplitude : 2.0}) );
                     return anim;
@@ -36,34 +37,30 @@
                 
                 
                 // creates a function for assigning to label's and imageDrawable's onClickTrigger
-                function createClickTrigger(id) 
+                function SKcreateClickTrigger(id) 
                 {
                     return function() 
                     {
                        
-                        if(selectedObject != null)
+                        if(SKselectedObject != null)
                         {
                             // reset the property animation
-                            selectedObject.animation.stop();
-                            selectedObject.arLabel.style.textColor = '#FFFFFF';
+                            SKselectedObject.animation.stop();
+                            SKselectedObject.arLabel.style.textColor = '#FFFFFF';
                         
-                            selectedObject.img.scaling = 1.0;
-                            selectedObject.poiObj.renderingOrder = 0;
+                            SKselectedObject.img.scaling = 1.0;
+                            SKselectedObject.poiObj.renderingOrder = 0;
                         }
                         
                         // set a new select status for the current selected poi
-                        selectedObject = jsonObject[id];
-                        selectedObject.arLabel.style.textColor = '#FFFF00';
-                        selectedObject.poiObj.renderingOrder = 1;
+                        SKselectedObject = SKjsonObject[id];
+                        SKselectedObject.arLabel.style.textColor = '#FFFF00';
+                        SKselectedObject.poiObj.renderingOrder = 1;
                         
                         // start the assigned animation
-                        selectedObject.animation.start();
-                        var directionurl = 'https://maps.googleapis.com/maps/api/directions/json?origin='+currLat+','+currLon+'&destination='+selectedObject.lat+','+selectedObject.lon+'&sensor=false';
-                        //document.getElementById("timetxt").innerHTML = "Testing";
-                        //document.getElementById("timetxt").innerHTML = directionurl;
-                        var rand = Math.random() * 2 + 2;
-                        rand = Math.floor(rand);    
-                        document.getElementById("timeimg").src = 'img/traffic'+rand+'1.png';
+                        SKselectedObject.animation.start();
+                        var directionurl = 'maps.googleapis.com/maps/api/directions/json?origin='+currLat+','+currLon+'&destination='+selectedObject.lat+','+selectedObject.lon+'&sensor=false';
+                        document.getElementById("timetxt").innerHTML = "Testing";
                         jQuery.get(directionurl,function(r){
                                
                               document.getElementById("timetxt").innerHTML = r.routes[0].legs[0].duration.text;  
@@ -73,19 +70,10 @@
                 }
                 
             
-                function createPOI(){
+                function SKcreatePOI(idarray){
                     
-                if(selsubsubcat == -1){
-                         var id= category.response.categories[selcat].categories[selsubcat].id;
-                         var imgicon ='img/category/0.0.png';
-                        }
-                      else{                        
-                        var id=category.response.categories[selcat].categories[selsubcat].categories[selsubsubcat].id;
-                        var imgicon ='img/category/0.0.png';
-
-                }
+                makevisible(7);
                  
-                var url='https://api.foursquare.com/v2/venues/search?ll='+currLat+','+currLon+'&categoryId='+id+'&radius='+radius+'&intent=browse&client_id='+clientId+'&client_secret='+clientSec+'&v=21030621'; 
                    
                 AR.radar.background = radarImage;
                 AR.radar.positionX = 0.025; 
@@ -101,7 +89,12 @@
                 AR.radar.enabled = true;
                 var radarCircle = new AR.Circle(0.05, {style: {fillColor: '#83ff7b'}});
                    /////Parsing begins from here
-                   jQuery.get(url,function(r){
+                var k = 0;
+                for(i=0;i<idarray.length;i++){    
+                
+                var url='https://api.foursquare.com/v2/venues/search?ll='+currLat+','+currLon+'&categoryId='+idarray[i]+'&radius='+radius+'&intent=browse&client_id='+clientId+'&client_secret='+clientSec+'&v=21030621'; 
+                   
+                jQuery.get(url,function(r){
                        
                    for(var i = 0; i < r.response.venues.length; i++)
                     {
@@ -136,10 +129,9 @@
                                             
                         var img = new AR.ImageDrawable(poiImage, 3.0,{zOrder: 1,offsetX : 0.8 ,offsetY:yoff,
                                                        triggers: { 
-                                                       onClick: createClickTrigger(i)}}
+                                                       onClick:
+                                                       createClickTrigger(i)}}
                                                        );
-                        
-                        img.onClick = createClickTrigger(i);
                         
                         
                         var label = new AR.Label(cropname,0.8, {
@@ -177,9 +169,6 @@
                             zOrder:2,
                             offsetY : -0.4+yoff, 
                             offsetX : -3.5 , 
-                            triggers:{
-                                onClick: createClickTrigger(i)
-                            }, 
                             horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.LEFT,
                             style : {
                                 fontStyle: AR.CONST.FONT_STYLE.BOLD,
@@ -190,92 +179,57 @@
                        
                       
                       
-                       var icon = new AR.ImageResource(imgicon, {onError: errorLoadingImage});
-                        
-                       var iconimg = new AR.ImageDrawable(icon, 1.5,{
-                           zOrder: 4,
-                           offsetX: 4.84,
-                            offsetY: 0.2+yoff,
-                            triggers:{
-                                onClick: createClickTrigger(i)
-                            } ,
-                            horizontalAnchor: AR.CONST.HORIZONTAL_ANCHOR.RIGHT
-                                                     
-                           });
-                                                   
+                                                                         
                         obj.animation = createOnClickAnimation(img);
                         obj.img = img;
                        
                         poidrawables.push(label);
                         poidrawables.push(img);
                         poidrawables.push(distancelabel);
-                        poidrawables.push(iconimg);
                         
                         obj.poiObj = new AR.GeoObject(geoLoc, {drawables: {cam: poidrawables,radar:radarCircle}});
                        
                         obj.name = r.response.venues[i].name;
                         obj.id = r.response.venues[i].id;
                        
-                        obj.lat = lat;
-                        obj.lon = lon;
-                        jsonObject[i] = obj;
+                        SKjsonObject[k]=obj;
+                        k++;
+
+                        if(i>3){
+                            i=r.response.venues.length;
+                        }
                         
                         
                     }
                     
                 },"jsonp");
                    
-                   
+                }   
                    
                 }
                 
                 // Called if loading of the image fails.
-                function errorLoadingImage() {
+                function SKerrorLoadingImage() {
                     // set error message on HUD
                     //document.getElementById("statusElement").innerHTML = "Unable to load image!";
                 }
                 
                 
                 // hide bubble and reset the selected poi if nothing was hit by a display click
-                AR.context.onScreenClick = function()
+                AR.context.SKonScreenClick = function()
                 {
                     // hide the bubble
                     //document.getElementById("footer").style.display = 'none';
                     
                     // and reset the current selected poi
-                    if(selectedObject != null)
+                    if(SKselectedObject != null)
                     {
                         // reset the property animation
-                        selectedObject.animation.stop();
+                        SKselectedObject.animation.stop();
                         
-                        selectedObject.arLabel.style.textColor = '#FFFFFF';
-                        selectedObject.img.scaling = 1.0;
-                        selectedObject.poiObj.renderingOrder = 0;
-                        selectedObject = null;
+                        SKselectedObject.arLabel.style.textColor = '#FFFFFF';
+                        SKselectedObject.img.scaling = 1.0;
+                        SKselectedObject.poiObj.renderingOrder = 0;
+                        SKselectedObject = null;
                     }
                 }
-                var valr=0;
-                var vall=0;
-                 function rott()
-                 {
-                 valr = valr + 1;
-                 vall = vall - 1;
-                 document.getElementById('zoom').style.webkitTransform="rotate("+valr+"deg)";
-                 document.getElementById('zoom').style.mozTransform="rotate("+valr+"deg)";
-                 
-                 document.getElementById('delete').style.webkitTransform="rotate("+vall+"deg)";
-                 document.getElementById('delete').style.mozTransform="rotate("+vall+"deg)";   
-                 
-                 document.getElementById('info').style.webkitTransform="rotate("+valr+"deg)";
-                 document.getElementById('info').style.mozTransform="rotate("+valr+"deg)";
-
-                 document.getElementById('refresh').style.webkitTransform="rotate("+vall+"deg)";
-                 document.getElementById('refresh').style.mozTransform="rotate("+vall+"deg)";
-                 }
-            function test(){
-                
-            }
-infobutton.onmouseup=function(){
-    makevisible(6);
-    displayinfo(selectedObject.id);
-}

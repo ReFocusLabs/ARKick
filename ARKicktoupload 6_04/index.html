@@ -4,21 +4,25 @@
 	  <link rel="stylesheet" href="css/style.css">
 	  <script src="js/jquery.js"></script>
 	  <script src="js/category.js"></script>
+    <script src="js/ade.js"></script>
     <script src="architect://architect.js"></script>
 	  <script src="js/imageCache.js"></script>
-	  <script src="js/preloadhome.js"></script>
 	  <script src="js/preload.js"></script>
+    <script src="js/modelist.js"></script>
     <script type="application/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	  <script src="js/getlocation.js"></script>
 
 	  
 	<head>
-<body>
+<body  style="background: none;">
+<div data-role="page" data-theme="a" data-overlay-theme="a" id="start"
+         style="background: none;">
+    <div id="fb-root"></div>
+    <script src="http://connect.facebook.net/en_US/all.js"></script>
+   
 	<div id="homescreen">
-		<div id="centerButtonDiv"></div>
-		<div id="speakButtonDiv"></div>
-		<div id="browserButtonDiv"></div>
-		<div id="sidekickButtonDiv"></div>
+		<div id="browserButtonDiv"><img id="browserbutton" src="img/bm1.png"></div>
+		<div id="sidekickButtonDiv"><img id="sidekickbutton"src="img/sm1.png"></div>
 	</div>
 	<div id="catscreen">
 
@@ -37,7 +41,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/1.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>College and University</h2>
               <span class="details">
@@ -48,7 +52,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/2.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Food</h2>
               <span class="details">
@@ -59,7 +63,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/3.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Night Life Spots</h2>
               <span class="details">
@@ -70,7 +74,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/4.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Outdoor and Recreation</h2>
               <span class="details">
@@ -81,7 +85,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/5.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Professional & Other Places</h2>
               <span class="details">
@@ -92,7 +96,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/6.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Residences</h2>
               <span class="details">
@@ -103,7 +107,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/7.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Shops and Services</h2>
               <span class="details">
@@ -114,7 +118,7 @@
             <li >
               <a href="#">		
               <a class="avatar">
-                <img src="img/category/8.png" alt="">
+                <img src="img/category/0.png" alt="">
               </a>
               <h2>Travel and Transport</h2>
               <span class="details">
@@ -135,17 +139,16 @@
     </ul>
   </div>
 	<div id="browsermode">
-        <img id="zoom" src="img/button.png" style="position:absolute; bottom:5%; width:20%; left:2.5%;"></img>
-        <img id="delete" src="img/button.png" style="position:absolute; bottom:5%; width:20%; left:27.5%;"></img>
-        <img id="info" src="img/button.png" style="position:absolute; bottom:5%; width:20%; left:52.5%;"></img>
-        <img id="refresh" src="img/button.png" style="position:absolute; bottom:5%; width:20%; left:77.5%;"></img>
-        <img id="plus" src="img/button.png" style="position:absolute; top:5%; width:15%; right:40%;"></img>
-        <img id="minus" src="img/button.png" style="position:absolute; top:5%; width:15%; right:22.5%;"></img>
-        <img id="home" src="img/button.png" style="position:absolute; top:5%; width:15%; right:5%;"></img>
-        <div id="time" style="position:absolute; top:20%; width:25%; right:5%; text-align: center;" >
-        <img id="timeimg" src="img/button.png" style="position:absolute; top:0%; width:100%; right:0%;"></img>
-        <span id="timetxt" style="display: inline-block; vertical-align: middle;line-height: normal;position:relative; top:5%; color:white;">12m</span>
-        <div>
+        <img id="backbutton" src="img/back1.png" style="position:absolute; bottom:5%; width:20%; left:2.5%;"></img>
+        <img id="delete" src="img/delete1.png" style="position:absolute; bottom:5%; width:20%; left:27.5%;"></img>
+        <img id="infobr" src="img/info1.png" style="position:absolute; bottom:5%; width:20%; left:52.5%;"></img>
+        <img id="refresh" src="img/refresh1.png" style="position:absolute; bottom:5%; width:20%; left:77.5%;"></img>
+        <img id="plus" src="img/plus1.png" style="position:absolute; top:5%; width:15%; right:40%;"></img>
+        <img id="minus" src="img/minus1.png" style="position:absolute; top:5%; width:15%; right:22.5%;"></img>
+        <div id="time" style="position:absolute; top:20%; width:25%; right:5%;" >
+        <img id="timeimg" src="img/traffic41.png" style="position:absolute; top:0%; width:100%; right:0%;"></img>
+        <span id="timetxt" style="position:absolute; left:25%;top:100%; color:white;">x mins</span>
+        </div>
 
   </div>
 	<div id="infoscreen">
@@ -159,7 +162,7 @@
       <span id="country"></span>
       <span id="phonenum"></span>
       <div id="rating">
-          <span id="ratingvalue">ss</span>
+          <span id="ratingvalue"></span>
       </div>
     </div>
     <div id="tips"></div>
@@ -168,10 +171,88 @@
     </div>
   </div>
   
-	<div id="sidekickmode"></div>
-	<div id="settings"></div>
+	<div id="sidekickmode">
+    <img id="skbackbutton" src="img/back1.png" style="position:absolute; bottom:5%; width:20%; left:2.5%;"></img>
+        <img id="skdelete" src="img/delete1.png" style="position:absolute; bottom:5%; width:20%; left:27.5%;"></img>
+        <img id="skinfobr" src="img/info1.png" style="position:absolute; bottom:5%; width:20%; left:52.5%;"></img>
+        <img id="skrefresh" src="img/refresh1.png" style="position:absolute; bottom:5%; width:20%; left:77.5%;"></img>
+        <img id="skplus" src="img/plus1.png" style="position:absolute; top:5%; width:15%; right:40%;"></img>
+        <img id="skminus" src="img/minus1.png" style="position:absolute; top:5%; width:15%; right:22.5%;"></img>
+        <img id="setmode" src="img/mode1.png" style="position:absolute; top:5%; width:15%; right:5%;"></img>
+        <div id="sktime" style="position:absolute; top:20%; width:25%; right:5%; text-align: center;" >
+        <img id="sktimeimg" src="img/traffic31.png" style="position:absolute; top:0%; width:100%; right:0%;"></img>
+        <span id="sktimetxt" style="display: inline-block; vertical-align: middle;line-height: normal;position:relative; top:5%; color:white;">O</span>
+    </div>
+  </div>
+
+
+  <div id="modeselect">
+    <ul id="modelist" class="table-view table-list">
+            <li>
+              <a href="#">    
+              <a class="avatar" href="#">
+                <img src="" alt="">
+              </a>
+              <h2>Auto</h2>
+              <span class="details">
+                Auto Mode Suggests Contextual Places..
+              </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">    
+              <a class="avatar" href="#">
+                <img src="" alt="">
+              </a>
+              <h2>Driving</h2>
+              <span class="details">
+                Places that will be handy when driving
+              </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">    
+              <a class="avatar" href="#">
+                <img src="" alt="">
+              </a>
+              <h2>On the Way</h2>
+              <span class="details">
+                Place that will be handy when your on a road trip..
+              </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">    
+              <a class="avatar" href="#">
+                <img src="" alt="">
+              </a>
+              <h2>YOLO</h2>
+              <span class="details">
+                Place you would visit bcoz YOLO..
+              </span>
+              </a>
+            </li>
+            <li>
+              <a href="#">    
+              <a class="avatar" href="#">
+                <img src="" alt="">
+              </a>
+              <h2>FUN</h2>
+              <span class="details">
+                Fun Place you would like to visit 
+              </span>
+              </a>
+            </li>
+        </ul>
+  </div>
+	<div id="settings">
+  </div>
+  </div>
 	<script src="js/app.js"></script>
-  <script src="js/browser.js"></script>
+     <script src="js/browser.js"></script>
+  <script src="js/sidekick.js"></script>
+ 
+   <script src="js/facebook.js"></script>
   
-	<body>
+	</body>
 </html>

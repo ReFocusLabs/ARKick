@@ -24,7 +24,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: visible;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: hidden;
 }
 #catscreen{
     position: absolute;
@@ -33,7 +34,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: scroll;
 }
 #subcatscreen{
     position: absolute;
@@ -43,7 +45,19 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     height:100%;
     visibility: hidden;
     background-color: rgba(0,0,0,0.3);
+    overflow: scroll;
 }
+#modeselect{
+    position: absolute;
+    left: 0px;
+    top:0px;
+    width: 100%;
+    height:100%;
+    visibility: hidden;
+     background: none;
+    overflow: scroll;
+}
+
 #subsubcatscreen{
     position: absolute;
     left: 0px;
@@ -51,7 +65,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: scroll;
 }
 #browsermode{
     position: absolute;
@@ -60,7 +75,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: hidden;
 }
 #infoscreen{
     position: absolute;
@@ -69,7 +85,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: hidden;
 }
 #sidekickmode{
     position: absolute;
@@ -78,7 +95,8 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(0,0,0,0.3);
+    background: none;
+    overflow: hidden;
 }
 #settings{
     position: absolute;
@@ -87,32 +105,21 @@ font-family: "HelveticaNeue", Arial, Helvetica, sans-serif;
     width: 100%;
     height:100%;
     visibility: hidden;
-    background-color: rgba(100,100,100,0.5);
+   background: none;
+    overflow: hidden;
 }
 
-#centerloading{
-    position: absolute;
-    left:5%;
-    top:20%;
-    width: 90%;
-}
 
-#speakButton{
-    position: absolute;
-    right:5%;
-    top:5%;
-    width: 20%;
-}
 #browserButton{
     position: absolute;
     left:15%;
-    bottom:5%;
+    bottom:45%;
     width: 30%;
 }
 #sidekickButton{
     position: absolute;
     right:15%;
-    bottom:5%;
+    bottom:45%;
     width: 30%;
 }
 
@@ -149,7 +156,7 @@ ul
     text-overflow: ellipsis; }
   .table-list a {
     text-decoration: none;
-    display: 
+   
     }
   .table-list li {
     padding: 0.8em 0.785em 0.9em 5em;
@@ -185,7 +192,7 @@ ul
     text-overflow: ellipsis; }
   .table-sublist a {
     text-decoration: none;
-    display: 
+     
     }
   .table-sublist li {
     padding: 0.8em 0.785em 0.9em 5em;

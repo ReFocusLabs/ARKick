@@ -7,7 +7,7 @@ var arkickpreload = new function () {
 
 		var imageArray = [];
 
-		for(var j=0; j<category.response.categories.length;j++){
+		/*for(var j=0; j<category.response.categories.length;j++){
 			imageArray.push('img/category/'+j+'.png');	
 			for(var i=0; i<category.response.categories[j].categories.length;i++){
 				imageArray.push('img/category/'+j+'.'+i+'.png');
@@ -15,8 +15,25 @@ var arkickpreload = new function () {
 					imageArray.push('img/category/'+j+'.'+i+'.'+k+'.png');
 				}			
 			}
-		}
-			
+		}*/
+		imageArray.push('img/category/0.png');
+		imageArray.push('img/category/0.0.png');
+		imageArray.push('img/sm1.png');
+		imageArray.push('img/bm1.png');
+		imageArray.push('img/north.png');
+		imageArray.push('img/radar.png');
+		imageArray.push('img/plus1.png');
+		imageArray.push('img/minus1.png');
+		imageArray.push('img/back1.png');
+		imageArray.push('img/refresh1.png');
+		imageArray.push('img/delete1.png');
+		imageArray.push('img/info1.png');
+		imageArray.push('img/traffic11.png');
+		imageArray.push('img/traffic21.png');
+		imageArray.push('img/traffic31.png');
+		imageArray.push('img/traffic41.png');
+		imageArray.push('img/mode1.png');
+
 		imageCache.pushArray(imageArray, loadImageEvent, loadAllEvent);
 
 		////////////////////////////////////////////////////////

@@ -6,9 +6,15 @@ var browsermode = document.getElementById("browsermode");           // 5
 var infoscreen = document.getElementById("infoscreen");             // 6
 var sidekickmode = document.getElementById("sidekickmode");         // 7
 var settings = document.getElementById("settings");                 // 8
-var browserButton = document.getElementById("browserButtonDiv");   
-var sidekickButton = document.getElementById("sidekickButtonDiv");  
-var speakButton = document.getElementById("speakButtonDiv");        
+var modeselect = document.getElementById("modeselect");             // 9
+var browserButton = document.getElementById("browserButton");   
+var sidekickButton = document.getElementById("sidekickButton");  
+var infobutton = document.getElementById("infobr");
+var backbutton = document.getElementById("backbutton");
+var skbackbutton = document.getElementById("skbackbutton");
+var setmode = document.getElementById("setmode");
+
+
 var selcat =-1; 
 var selsubcat =-1;
 var selsubsubcat =-1;
@@ -23,6 +29,7 @@ function makevisible(screen){
         infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 2){
@@ -34,6 +41,7 @@ function makevisible(screen){
         infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 3){
@@ -45,6 +53,7 @@ function makevisible(screen){
         infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 4){
@@ -56,6 +65,7 @@ function makevisible(screen){
         infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 5){
@@ -67,6 +77,7 @@ function makevisible(screen){
         infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 6){
@@ -78,6 +89,7 @@ function makevisible(screen){
         infoscreen.style.visibility="visible";
         sidekickmode.style.visibility="hidden";
         settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
         
     }
     else if(screen == 7){
@@ -87,8 +99,21 @@ function makevisible(screen){
         subsubcatscreen.style.visibility="hidden";
         browsermode.style.visibility="hidden";
         infoscreen.style.visibility="hidden";
+        sidekickmode.style.visibility="visible";
+        settings.style.visibility="hidden";
+        modeselect.style.visibility="hidden";
+        
+    }
+    else if(screen == 8){
+        homescreen.style.visibility="hidden";
+        catscreen.style.visibility="hidden";
+        subcatscreen.style.visibility="hidden";
+        subsubcatscreen.style.visibility="hidden";
+        browsermode.style.visibility="hidden";
+        infoscreen.style.visibility="hidden";
         sidekickmode.style.visibility="hidden";
-        settings.style.visibility="visible";
+        settings.style.visibility="hidden";
+        modeselect.style.visibility="visible";
         
     }
 }
@@ -101,13 +126,11 @@ browserButtonDiv.onmouseup=function(){
     
 }
 sidekickButtonDiv.onmouseup=function(){
+    
     makevisible(7);
-
+    SKcreatePOI(modelist);
 }
-speakButtonDiv.onmouseup=function(){
 
-
-}
 
 
  
@@ -118,21 +141,21 @@ $("#catlist li").click(function(e){
     makevisible(3)
     for(var i=0; i<category.response.categories[selcat].categories.length;i++){
                var name = category.response.categories[selcat].categories[i].name;
-               $("#subcatscreen ul").append('<li><a href="#"><a class="avatar"><img src="img/category/'+selcat+'.'+i+'.png" alt=""></a><h2>'+name+'</h2></a></li>');           
+               $("#subcatscreen ul").append('<li><a href="#"><a class="avatar"><img src="img/category/0.0.png" alt=""></a><h2>'+name+'</h2></a></li>');           
     }
     $("#subcatscreen li").click(function(){
     var index = $("#subcatscreen li").index(this);
     selsubcat = index;
     if(category.response.categories[selcat].categories[selsubcat].categories.length == 0){
         makevisible(5);
-        getplaces();
+        createPOI();
     }
     else{
         makevisible(4)
          for(var j=0; j<category.response.categories[selcat].categories[selsubcat].categories.length;j++){
                    var name = category.response.categories[selcat].categories[selsubcat].categories[j].name;
                   
-                   $("#subsubcatscreen ul").append('<li><a href="#"><a class="avatar"><img src="img/category/'+selcat+'.'+selsubcat+'.'+j+'.png" alt=""></a><h2>'+name+'</h2></a></li>');           
+                   $("#subsubcatscreen ul").append('<li><a href="#"><a class="avatar"><img src="img/category/0.0.png" alt=""></a><h2>'+name+'</h2></a></li>');           
         }
     }
     $("#subsubcatscreen li").click(function(){
@@ -146,7 +169,7 @@ $("#catlist li").click(function(e){
 });
 
 function displayinfo(id){
-    var id='40a55d80f964a52020f31ee3';
+    
     var clientId = '3JLCFT4CFRGATLFWPOTOCKA41HPLBZWCNBZF21MP5Q4E3AY2';
     var clientSec = 'HT50OBCWT5D2HURLEFR0EROAX0DCCICFPJ0FVB4H0I5RPXHT';
     url='https://api.foursquare.com/v2/venues/'+id+'?client_id='+clientId+'&client_secret='+clientSec+'&v=21030621';
@@ -160,12 +183,11 @@ function displayinfo(id){
         var state = r.response.venue.location.state;
         var country = r.response.venue.location.country;
         var rating = r.response.venue.rating;
-        var menu = r.response.venue.menu.mobileUrl;
-        var photos = r.response.venue.photos.groups[0].items;
-        var lat = r.response.venue.location.lat;
-        var lon = r.response.venue.location.lng;
+        if (r.response.venue.photos.groups[0] === undefined) {
 
-        if(photos.length == 0){
+        }else{
+            var photos = r.response.venue.photos.groups[0].items;    
+            if(photos.length == 0){
 
         }else if(photos.length ==1){
             imgurl = photos[0].prefix+'width'+photos[0].width+photos[0].suffix;
@@ -189,6 +211,12 @@ function displayinfo(id){
            console.log(imgurl);
            
         }  
+        
+        }
+        
+        var lat = r.response.venue.location.lat;
+        var lon = r.response.venue.location.lng;
+
         if(name.length > 25){
             var cropname = name.substring(0, 25) + "..";
         }
@@ -222,3 +250,46 @@ function displayinfo(id){
     });
 
 }
+
+$("#modelist li").click(function(e){
+    e.preventDefault();
+    var index = $("#modelist li").index(this);
+    makevisible(7);
+    SKcreatePOI(modelist);
+});
+
+backbutton.onmouseup= function(){
+    
+    /*AR.radar.enabled = false;
+    for(i=0;i<jsonObject.length;i<i++){
+                            jsonObject[i].poiObj.destroy();
+                            jsonObject[i].arLabel.destroy();
+                            jsonObject[i].img.destroy();
+                            jsonObject[i].iconimg.destroy();
+                            jsonObject[i].distancelabel.destroy();
+                            jsonObject[i].poiObj.locations[0].destroy();
+    }
+    jsonObject.length = 0;
+    makevisible(1);*/
+    window.location="http://decodingtech.com/arkicklatest2/index.html";
+    
+}
+skbackbutton.onmouseup= function(){
+    
+     /*AR.radar.enabled = false;
+    for(i=0;i<SKjsonObject.length;i<i++){
+                            SKjsonObject[i].poiObj.destroy();
+                            SKjsonObject[i].arLabel.destroy();
+                            SKjsonObject[i].img.destroy();
+                            SKjsonObject[i].iconimg.destroy();
+                            SKjsonObject[i].distancelabel.destroy();
+                            SKjsonObject[i].poiObj.locations[0].destroy();
+    }
+    SKjsonObject.length = 0;
+    makevisible(1);*/
+    window.location="http://decodingtech.com/arkicklatest2/index.html";
+}
+setmode.onmouseup= function(){
+    makevisible(8);
+}
+
